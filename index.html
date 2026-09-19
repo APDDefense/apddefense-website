@@ -105,7 +105,7 @@
       <a class="nav-link" href="#system">Product</a>
       <a class="nav-link" href="#features">Features</a>
       <a class="nav-link" href="#use-cases">Use cases</a>
-      <a class="nav-link" href="#how-it-works">How it works</a>
+      <a class="nav-link" href="#specs">Specs</a>
       <a class="nav-link" href="#contact">Contact</a>
       <a class="btn btn-ghost" style="min-height:2.5rem;padding:.5rem 1rem;font-size:.72rem" href="#contact" data-inquiry="demo">Request a Demo</a>
     </nav>
@@ -122,6 +122,7 @@
       <a class="nav-link" style="padding:.9rem 0" href="#features">Features</a>
       <a class="nav-link" style="padding:.9rem 0" href="#use-cases">Use cases</a>
       <a class="nav-link" style="padding:.9rem 0" href="#how-it-works">How it works</a>
+      <a class="nav-link" style="padding:.9rem 0" href="#specs">Specs</a>
       <a class="nav-link" style="padding:.9rem 0" href="#contact" data-inquiry="demo">Request a Demo</a>
     </div>
   </nav>
@@ -199,6 +200,17 @@
       </div>
     </aside>
 
+  </div>
+
+  <!-- Spec strip. Every figure traces to a source file; see website-marketing-research.md. -->
+  <div class="wrap" style="margin-top:3rem;position:relative">
+    <ul class="panel brk brk-slate reveal grid grid-cols-2 lg:grid-cols-5" style="list-style:none;margin:0;padding:0;gap:1px;background:var(--line)" aria-label="Key specifications">
+      <li style="background:var(--panel);padding:1.1rem 1.25rem"><span class="mono" style="display:block;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.2">AES-256</span><span style="display:block;margin-top:.3rem;font-size:.82rem;color:var(--muted)">authenticated encryption</span></li>
+      <li style="background:var(--panel);padding:1.1rem 1.25rem"><span class="mono" style="display:block;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.2">915&nbsp;MHz</span><span style="display:block;margin-top:.3rem;font-size:.82rem;color:var(--muted)">sub-1&nbsp;GHz ISM band</span></li>
+      <li style="background:var(--panel);padding:1.1rem 1.25rem"><span class="mono" style="display:block;font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1.2">0</span><span style="display:block;margin-top:.3rem;font-size:.82rem;color:var(--muted)">cell towers or internet needed</span></li>
+      <li style="background:var(--panel);padding:1.1rem 1.25rem"><span class="mono" style="display:block;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.2">4</span><span style="display:block;margin-top:.3rem;font-size:.82rem;color:var(--muted)">triage categories</span></li>
+      <li class="col-span-2 lg:col-span-1" style="background:var(--panel);padding:1.1rem 1.25rem"><span class="mono" style="display:block;font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.2">13</span><span style="display:block;margin-top:.3rem;font-size:.82rem;color:var(--muted)">built-in training scenarios</span></li>
+    </ul>
   </div>
 
   <!-- Animated vitals trace: the PulseLink product motif -->
@@ -308,6 +320,53 @@
         </ul>
       </article>
     </div>
+
+    <!-- How the data flows. Each hop's tag states what has actually been demonstrated. -->
+    <div class="mt-16" style="margin-top:4rem">
+      <p class="eyebrow dim reveal" style="margin:0">How the data flows</p>
+      <h3 class="reveal mt-3 text-2xl sm:text-3xl font-semibold" style="--d:60ms">From the medic&rsquo;s hands to the leader&rsquo;s map.</h3>
+      <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" style="list-style:none;padding:0;margin-bottom:0" aria-label="Data path, hop by hop">
+        <li class="panel brk card reveal p-6 flex flex-col" style="padding:1.4rem">
+          <span class="mono text-xs" style="color:var(--dim)">HOP&nbsp;1</span>
+          <h4 class="mt-3 text-lg font-semibold" style="margin-bottom:0">Medic&rsquo;s phone</h4>
+          <p class="mono text-sm" style="margin:.25rem 0 0;color:var(--accent)">PulseLink app</p>
+          <p class="mt-3 text-sm" style="color:var(--muted);margin-bottom:0">Triage, MARCH and the 9-line are built here.</p>
+          <div class="mt-auto" style="padding-top:1rem;margin-top:auto">
+            <p class="mono text-xs" style="margin:0 0 .45rem;color:var(--dim)">&rarr; USB to the radio</p>
+            <span class="tag tag-partial"><svg width="12" height="12" aria-hidden="true"><use href="#i-partial"/></svg>Hardware test next</span>
+          </div>
+        </li>
+        <li class="panel brk brk-slate card reveal p-6 flex flex-col" style="padding:1.4rem;--d:90ms">
+          <span class="mono text-xs" style="color:var(--dim)">HOP&nbsp;2</span>
+          <h4 class="mt-3 text-lg font-semibold" style="margin-bottom:0">Medic&rsquo;s radio</h4>
+          <p class="mono text-sm" style="margin:.25rem 0 0;color:var(--accent)">APD Defense radio</p>
+          <p class="mt-3 text-sm" style="color:var(--muted);margin-bottom:0">Encrypts and authenticates every packet. The phone never handles the key.</p>
+          <div class="mt-auto" style="padding-top:1rem;margin-top:auto">
+            <p class="mono text-xs" style="margin:0 0 .45rem;color:var(--dim)">&rarr; AES-256 &middot; 915&nbsp;MHz</p>
+            <span class="tag tag-verified"><svg width="12" height="12" aria-hidden="true"><use href="#i-verified"/></svg>Demonstrated</span>
+          </div>
+        </li>
+        <li class="panel brk brk-slate card reveal p-6 flex flex-col" style="padding:1.4rem;--d:180ms">
+          <span class="mono text-xs" style="color:var(--dim)">HOP&nbsp;3</span>
+          <h4 class="mt-3 text-lg font-semibold" style="margin-bottom:0">Team radios</h4>
+          <p class="mono text-sm" style="margin:.25rem 0 0;color:var(--accent)">Encrypted mesh</p>
+          <p class="mt-3 text-sm" style="color:var(--muted);margin-bottom:0">Built to relay traffic across the team. Multi-hop testing is next.</p>
+          <div class="mt-auto" style="padding-top:1rem;margin-top:auto">
+            <p class="mono text-xs" style="margin:0 0 .45rem;color:var(--dim)">&rarr; Cursor-on-Target</p>
+            <span class="tag tag-verified"><svg width="12" height="12" aria-hidden="true"><use href="#i-verified"/></svg>Demonstrated &middot; via PC bridge</span>
+          </div>
+        </li>
+        <li class="panel brk brk-slate card reveal p-6 flex flex-col" style="padding:1.4rem;--d:270ms">
+          <span class="mono text-xs" style="color:var(--dim)">HOP&nbsp;4</span>
+          <h4 class="mt-3 text-lg font-semibold" style="margin-bottom:0">Leader&rsquo;s ATAK</h4>
+          <p class="mono text-sm" style="margin:.25rem 0 0;color:var(--accent)">ATAK-CIV</p>
+          <p class="mt-3 text-sm" style="color:var(--muted);margin-bottom:0">Cursor-on-Target events land on the leader&rsquo;s map.</p>
+        </li>
+      </ol>
+      <p class="reveal mt-5 mono text-xs" style="color:var(--dim);font-size:.74rem;letter-spacing:.06em;line-height:1.6">
+        Tags show what has been demonstrated on development hardware today.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -361,6 +420,24 @@
         <p class="mt-3" style="color:var(--muted)">The radio carries Cursor-on-Target, the format ATAK speaks. Demonstrated end to end into ATAK-CIV, with a PC bridging handset and radio.</p>
       </article>
 
+      <article class="panel brk brk-slate card reveal p-7" style="padding:1.75rem" aria-labelledby="f8-title">
+        <p class="mono text-sm" style="margin:0;color:var(--accent)">QR scan &middot; 8-digit code</p>
+        <h3 id="f8-title" class="mt-3 text-xl font-semibold">Set up radios by sticker</h3>
+        <p class="mt-3" style="color:var(--muted)">Every radio carries a sticker. Scan its QR code or type its 8-digit code to assign it to a team member. It works offline, with no numbers to manage.</p>
+      </article>
+
+      <article class="panel brk brk-slate card reveal p-7" style="padding:1.75rem;--d:90ms" aria-labelledby="f9-title">
+        <p class="mono text-sm" style="margin:0;color:var(--accent)">No internet &middot; no cloud</p>
+        <h3 id="f9-title" class="mt-3 text-xl font-semibold">Nothing phones home</h3>
+        <p class="mt-3" style="color:var(--muted)">The app doesn&rsquo;t even ask for internet access. There are no accounts or servers, and your team&rsquo;s positions stay on your own devices.</p>
+      </article>
+
+      <article class="panel brk brk-slate card reveal p-7" style="padding:1.75rem;--d:180ms" aria-labelledby="f10-title">
+        <p class="mono text-sm" style="margin:0;color:var(--accent)">True-black display</p>
+        <h3 id="f10-title" class="mt-3 text-xl font-semibold">Dark by design</h3>
+        <p class="mt-3" style="color:var(--muted)">A pure-black interface built for OLED screens, where black pixels are switched off. The screen stays dim at night and easy to read in a hurry.</p>
+      </article>
+
       <article class="panel brk card reveal p-7 sm:col-span-2 lg:col-span-3" style="padding:1.75rem" aria-labelledby="f7-title">
         <div class="grid gap-6 lg:grid-cols-12 items-center">
           <div class="lg:col-span-5">
@@ -372,6 +449,12 @@
           </div>
         </div>
       </article>
+    </div>
+
+    <div class="reveal mt-10 flex flex-col sm:flex-row sm:items-center gap-4" style="margin-top:2.5rem">
+      <a class="btn btn-primary" href="#contact" data-inquiry="demo">See it in a demo
+        <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-ghost" href="#specs">Read the specs</a>
     </div>
   </div>
 </section>
@@ -460,6 +543,62 @@
   </div>
 </section>
 
+<hr class="rule">
+
+<!-- ============================== TECH SPECS ==============================
+     Every value traces to a source file; see website-marketing-research.md. -->
+<section id="specs" class="!py-20 sm:!py-28" aria-labelledby="specs-title">
+  <div class="wrap">
+    <div class="max-w-3xl">
+      <p class="eyebrow reveal">06 &nbsp;/&nbsp; Tech specs</p>
+      <h2 id="specs-title" class="reveal mt-4 text-3xl sm:text-4xl font-semibold" style="--d:60ms">The details.</h2>
+      <p class="reveal mt-5 mono text-xs" style="--d:120ms;color:var(--dim);font-size:.74rem;letter-spacing:.06em;line-height:1.6">
+        Development hardware and the current PulseLink build. Specifications may change before release.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <article class="panel brk card reveal p-7" style="padding:1.75rem" aria-labelledby="sp1-title">
+        <div style="display:flex;align-items:center;gap:.9rem">
+          <img src="assets/apd-defense-mark.png" width="36" height="37" alt="" loading="lazy" decoding="async">
+          <h3 id="sp1-title" class="text-xl font-semibold" style="margin:0">APD Defense radio</h3>
+        </div>
+        <dl class="mt-5" style="margin-bottom:0">
+          <div class="status-row"><dt class="status-name">Band</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">915&nbsp;MHz ISM &middot; sub-1&nbsp;GHz</dd></div>
+          <div class="status-row"><dt class="status-name">Modulation</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">2-GFSK &middot; 50&nbsp;kbps</dd></div>
+          <div class="status-row"><dt class="status-name">Encryption</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">AES-256-CCM, authenticated</dd></div>
+          <div class="status-row"><dt class="status-name">Replay protection</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">32-bit counter &middot; sliding window</dd></div>
+          <div class="status-row"><dt class="status-name">Largest message</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">1,024 bytes, fragmented and reassembled</dd></div>
+          <div class="status-row"><dt class="status-name">Infrastructure</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">None: no towers, internet or cloud</dd></div>
+          <div class="status-row"><dt class="status-name">Interoperability</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Cursor-on-Target &middot; ATAK-CIV via PC bridge</dd></div>
+          <div class="status-row"><dt class="status-name">Mesh relay</dt><dd style="margin:0;text-align:right"><span class="tag tag-partial"><svg width="12" height="12" aria-hidden="true"><use href="#i-partial"/></svg>Built &middot; multi-hop test next</span></dd></div>
+          <div class="status-row"><dt class="status-name">Vital-sign sensors</dt><dd style="margin:0;text-align:right"><span class="tag tag-roadmap"><svg width="12" height="12" aria-hidden="true"><use href="#i-roadmap"/></svg>Roadmap &middot; format ready</span></dd></div>
+        </dl>
+      </article>
+
+      <article class="panel brk brk-slate card reveal p-7" style="padding:1.75rem;--d:90ms" aria-labelledby="sp2-title">
+        <div style="display:flex;align-items:center;gap:.9rem">
+          <svg class="pl-mark" width="36" height="36" style="color:var(--text)" role="img" aria-label="PulseLink logo"><use href="#pl-mark-sweep"/></svg>
+          <h3 id="sp2-title" class="text-xl font-semibold" style="margin:0">PulseLink app</h3>
+        </div>
+        <dl class="mt-5" style="margin-bottom:0">
+          <div class="status-row"><dt class="status-name">Platform</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Android</dd></div>
+          <div class="status-row"><dt class="status-name">Network access</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">None requested; works offline</dd></div>
+          <div class="status-row"><dt class="status-name">Triage</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">4 categories &middot; live tally &middot; filters</dd></div>
+          <div class="status-row"><dt class="status-name">Treatment record</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">MARCH checklist</dd></div>
+          <div class="status-row"><dt class="status-name">MEDEVAC</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">9-line builder &middot; large-type read-off card</dd></div>
+          <div class="status-row"><dt class="status-name">Navigation</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Heading-up plot &middot; handset GPS + compass</dd></div>
+          <div class="status-row"><dt class="status-name">Radio assignment</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">QR scan or 8-digit code, offline</dd></div>
+          <div class="status-row"><dt class="status-name">Training</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">13 built-in scenarios, clearly marked</dd></div>
+          <div class="status-row"><dt class="status-name">Display</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">True black, for OLED screens</dd></div>
+          <div class="status-row"><dt class="status-name">Send 9-line as CoT</dt><dd style="margin:0;text-align:right"><span class="tag tag-partial"><svg width="12" height="12" aria-hidden="true"><use href="#i-partial"/></svg>Built &middot; end-to-end test next</span></dd></div>
+          <div class="status-row"><dt class="status-name">Key management app</dt><dd style="margin:0;text-align:right"><span class="tag tag-roadmap"><svg width="12" height="12" aria-hidden="true"><use href="#i-roadmap"/></svg>Coming</span></dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ EARLY ACCESS ============================ -->
 <section id="early-access" class="!pt-0 !pb-20 sm:!pb-28" aria-labelledby="ea-title">
   <div class="wrap">
@@ -489,7 +628,7 @@
 <section id="contact" class="relative !py-20 sm:!py-28" aria-labelledby="contact-title">
   <div class="wrap">
     <div class="max-w-3xl">
-      <p class="eyebrow reveal">06 &nbsp;/&nbsp; Contact</p>
+      <p class="eyebrow reveal">07 &nbsp;/&nbsp; Contact</p>
       <h2 id="contact-title" class="reveal mt-4 text-3xl sm:text-4xl font-semibold" style="--d:60ms">Let&rsquo;s talk.</h2>
       <p class="lede reveal mt-5 text-lg" style="--d:120ms">
         Tell us about your team and what you need. We&rsquo;ll get back to you.
@@ -595,6 +734,7 @@
         <a class="nav-link" href="#system">Product</a>
         <a class="nav-link" href="#features">Features</a>
         <a class="nav-link" href="#use-cases">Use cases</a>
+        <a class="nav-link" href="#specs">Specs</a>
         <a class="nav-link" href="#contact">Contact</a>
       </nav>
     </div>
@@ -749,7 +889,7 @@
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'system', 'features', 'use-cases', 'how-it-works', 'contact'].forEach(function (id) { spy.observe($(id)); });
+    ['top', 'system', 'features', 'use-cases', 'specs', 'contact'].forEach(function (id) { spy.observe($(id)); });
   }
 
   /* ---- CTAs that preselect the inquiry type: <a data-inquiry="demo"> picks <option data-key="demo"> ---- */
