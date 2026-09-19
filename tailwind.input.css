@@ -129,40 +129,67 @@
     font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: .5rem 1rem; line-height: 1.5; }
 
   /* Hero vitals trace + PulseLink heartbeat. Timing lives in the inline <style> in index.html:
-       --beat   one cardiac cycle (0.667s = 90 bpm). Drives the shield's lub-dub.
-       --sweep  one monitor pass across the PulseLink mark (3 beats).
-       --strip  one pass of the pulse along the page-wide hero trace (4 beats = one drawn complex per beat).
-     Sweep speed is constant, as on a real monitor; nothing glows, blinks or changes brightness. */
+       --beat         one heartbeat (2s = 30 bpm). Every animation below repeats on it.
+       --sweep        how long the monitor takes to write the PulseLink logo trace on each beat (absolute).
+       --strip-sweep  how long one complex takes to write on the page-wide trace (absolute).
+       --sweep-end / --cx-end are the derived "writing finishes here" points; the script recomputes them.
+     Each beat: the trace is written fast left to right, then holds and fades until the next beat.
+     Write speed is constant during the sweep; nothing glows. */
   .ecg { display: block; width: 100%; height: 120px; }
   .ecg-base { stroke: var(--line-strong); }
-  /* dash pattern totals 1000 = the path's pathLength, so the pulse re-enters at the left as it leaves the right */
-  .ecg-pulse { stroke: var(--accent); stroke-dasharray: 22 30 46 902; stroke-dashoffset: 0; }
+  /* One green complex per beat, left to right across the four complexes of the strip */
+  .ecg-cx { stroke: var(--accent); opacity: 0; }
   .pl-mark { display: block; flex: none; overflow: visible; transform-origin: 50% 55%; }
   /* PulseLink mark trace layers (inside the #pl-mark-sweep symbol). Only plain class selectors reach inside a
      <use> instance, so there are no ancestor selectors here. Default (and reduced motion) = static solid trace. */
-  .mark-old, .mark-new, .mark-sweep-tips { display: none; }
+  .mark-old, .mark-new, .mark-tip-l, .mark-tip-r { display: none; }
   @media (prefers-reduced-motion: no-preference) {
-    .ecg-pulse { animation: ecg-beat var(--strip) linear infinite; animation-delay: calc(var(--beat) * .28 + var(--phase-delay, 0s)); animation-play-state: var(--play, running); }
+    .ecg-cx { stroke-dasharray: 1 2; stroke-dashoffset: 1;
+      animation: ecg-draw calc(var(--beat) * 4) linear infinite, ecg-fade calc(var(--beat) * 4) linear infinite;
+      /* complex k is written on beat k; shifted so its R spike lands with the logo's R spike */
+      animation-delay: calc(var(--beat) * var(--k) + (var(--sweep) - var(--strip-sweep)) * .45 + var(--phase-delay, 0s));
+      animation-play-state: var(--play, running); }
     .blink { animation: blink 2.4s ease-in-out infinite; }
     .mark-static { display: none; }
-    .mark-old, .mark-new, .mark-sweep-tips { display: inline; }
-    /* EKG-monitor sweep: .mark-new is the trace being drawn left-to-right; .mark-old is the previous pass, erased
-       just ahead of the drawing point. Both are the same plain white - the moving gap alone shows where "now" is. */
-    .mark-new { stroke-dasharray: 1 1.3; stroke-dashoffset: 1; animation: sweep-new var(--sweep) linear infinite; animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
-    .mark-old { stroke-dasharray: 1 1.3; stroke-dashoffset: -.14; animation: sweep-old var(--sweep) linear infinite; animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
-    /* Shield lub-dub at --beat. The delay lands a "lub" as the drawing point crosses the R spike (45% along the trace). */
-    .pl-mark { animation: shield-beat var(--beat) ease-out infinite; animation-delay: calc(var(--sweep) * .45 - var(--beat) + var(--phase-delay, 0s)); animation-play-state: var(--play, running); }
-    html.tab-hidden .ecg-pulse, html.tab-hidden .pl-mark, html.tab-hidden .blink { animation-play-state: paused; }
+    .mark-old, .mark-new, .mark-tip-l, .mark-tip-r { display: inline; }
+    /* EKG-monitor sweep: .mark-new is the trace being written left to right; .mark-old is the previous (faded)
+       pass, erased just ahead of the writing point, so the moving gap shows where "now" is. */
+    .mark-new { stroke-dasharray: 1 1.3; stroke-dashoffset: 1;
+      animation: sweep-new var(--beat) linear infinite, trace-fade var(--beat) linear infinite;
+      animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
+    .mark-old { opacity: .45; stroke-dasharray: 1 1.3; stroke-dashoffset: -.14;
+      animation: sweep-old var(--beat) linear infinite;
+      animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
+    /* Left tip is where writing starts; the right tip stays with the faded old trace until the sweep reaches it. */
+    .mark-tip-l { animation: trace-fade var(--beat) linear infinite;
+      animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
+    .mark-tip-r { opacity: .45; animation: tip-arrive var(--beat) linear infinite;
+      animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
+    /* Write fast, then rest: linear() compresses the draw into the first --sweep-end of each beat.
+       Browsers without linear() fall back to drawing across the whole beat. */
+    @supports (animation-timing-function: linear(0, 1)) {
+      .mark-new { animation-timing-function: linear(0, 1 var(--sweep-end), 1), linear(0, 0 var(--sweep-end), 1); }
+      .mark-old { animation-timing-function: linear(0, 1 var(--sweep-end), 1); }
+      .mark-tip-l { animation-timing-function: linear(0, 0 var(--sweep-end), 1); }
+      .mark-tip-r { animation-timing-function: linear(0, 0 calc(var(--sweep-end) * .95), 1 var(--sweep-end), 0); }
+      .ecg-cx { animation-timing-function: linear(0, 1 var(--cx-end), 1), linear(0, 0 var(--cx-end), 1 calc(var(--cx-end) + 28%), 1); }
+    }
+    /* Shield lub-dub once per beat. The delay lands the "lub" as the writing point crosses the R spike (45% along). */
+    .pl-mark { animation: shield-beat var(--beat) ease-out infinite; animation-delay: calc(var(--sweep) * .45 + var(--phase-delay, 0s)); animation-play-state: var(--play, running); }
+    html.tab-hidden .ecg-cx, html.tab-hidden .pl-mark, html.tab-hidden .blink { animation-play-state: paused; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .ecg-pulse { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .55; }
+    .ecg-cx { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .55; }
     .card, .btn, .field, .site-header, .nav-link { transition: none; }
   }
-  @keyframes ecg-beat { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1000; } }
+  @keyframes ecg-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes ecg-fade { from { opacity: 1; } to { opacity: 0; } }
   @keyframes sweep-new { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes sweep-old { from { stroke-dashoffset: -.14; } to { stroke-dashoffset: -1.14; } }
-  /* lub (S1) at 0, dub (S2) about 0.3s later at 90 bpm, then the diastolic pause */
-  @keyframes shield-beat { 0% { transform: scale(1); } 7% { transform: scale(1.03); } 18% { transform: scale(1); } 45% { transform: scale(1); } 52% { transform: scale(1.016); } 64%, 100% { transform: scale(1); } }
+  @keyframes trace-fade { from { opacity: 1; } to { opacity: .45; } }
+  @keyframes tip-arrive { from { opacity: .45; } to { opacity: 1; } }
+  /* Percentages of a 2s beat: lub (S1) peaks at 0.06s, dub (S2) peaks 0.3s later, then the long diastolic rest */
+  @keyframes shield-beat { 0% { transform: scale(1); } 3% { transform: scale(1.03); } 9% { transform: scale(1); } 15% { transform: scale(1); } 18% { transform: scale(1.016); } 24%, 100% { transform: scale(1); } }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 
   /* Scroll reveal: progressive enhancement. Content is fully visible unless JS

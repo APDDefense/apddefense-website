@@ -32,12 +32,14 @@
   a { color: #5FD4A0; }
   img, svg { max-width: 100%; }
   [hidden] { display: none !important; }
-  /* HEARTBEAT TIMING - change these here; no rebuild needed.
-     --beat  = one cardiac cycle in seconds = 60 / bpm.   90 bpm -> 0.667s   (72 bpm -> 0.833s, 60 bpm -> 1s)
-     --sweep = one EKG-monitor pass across the PulseLink logo. Keep it a whole number of beats so the
-               shield's "lub" keeps landing as the trace reaches the R spike.
-     --strip = one pass of the green pulse along the page-wide trace; 4 beats = it meets one drawn complex per beat. */
-  :root { --beat: 0.667s; --sweep: calc(var(--beat) * 3); --strip: calc(var(--beat) * 4); }
+  /* HEARTBEAT TIMING - edit the first three; no rebuild needed.
+     --beat         one heartbeat, in seconds = 60 / bpm.   2s = 30 bpm   (1s = 60 bpm, 0.667s = 90 bpm)
+     --sweep        how long the monitor takes to write the PulseLink logo trace on each beat.
+     --strip-sweep  how long one complex takes to write on the page-wide trace. A complex there is about 1.8x
+                    wider than the 104px hero logo's trace, so 0.75s keeps roughly the same write speed (px/s).
+     --sweep-end and --cx-end are derived (sweep / beat, strip-sweep / 4 beats); the script recomputes them. */
+  :root { --beat: 2s; --sweep: 0.42s; --strip-sweep: 0.75s; --sweep-end: 21%; --cx-end: 9.375%; }
+
 
 </style>
 <!-- Compiled Tailwind v3 + site styles (static, self-hosted). Source: tailwind.input.css / tailwind.config.js -->
@@ -71,7 +73,7 @@
         <g class="mark-static"><path fill="none" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="8" d="M14 58H17L22 51.5 27.5 58H37L42.5 66 48.2 30 54.7 72 60 58H66C71 58 72 47 77.5 47S83.5 58 88 58"/><path stroke="none" d="M0 58 14.2 55.25V60.75Z"/><path stroke="none" d="M100 58 87.8 55.25V60.75Z"/></g>
         <path class="mark-old" pathLength="1" fill="none" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="8" d="M14 58H17L22 51.5 27.5 58H37L42.5 66 48.2 30 54.7 72 60 58H66C71 58 72 47 77.5 47S83.5 58 88 58"/>
         <path class="mark-new" pathLength="1" fill="none" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="8" d="M14 58H17L22 51.5 27.5 58H37L42.5 66 48.2 30 54.7 72 60 58H66C71 58 72 47 77.5 47S83.5 58 88 58"/>
-        <g class="mark-sweep-tips"><path stroke="none" d="M0 58 14.2 55.25V60.75Z"/><path stroke="none" d="M100 58 87.8 55.25V60.75Z"/></g>
+        <path class="mark-tip-l" stroke="none" d="M0 58 14.2 55.25V60.75Z"/><path class="mark-tip-r" stroke="none" d="M100 58 87.8 55.25V60.75Z"/>
       </g>
     </symbol>
 
@@ -238,10 +240,15 @@
         </linearGradient>
         <mask id="ecg-mask"><rect width="1200" height="120" fill="url(#ecg-fade)"/></mask>
         <path id="ecg-path" pathLength="1000" d="M0 70H96l10-9 10 9h18l7 11 9-66 10 84 8-29h20c9 0 11-15 20-15s11 15 20 15H396l10-9 10 9h18l7 11 9-66 10 84 8-29h20c9 0 11-15 20-15s11 15 20 15H696l10-9 10 9h18l7 11 9-66 10 84 8-29h20c9 0 11-15 20-15s11 15 20 15H996l10-9 10 9h18l7 11 9-66 10 84 8-29h20c9 0 11-15 20-15s11 15 20 15h72"/>
+        <path id="ecg-cx" pathLength="1" d="M84 70H96l10-9 10 9h18l7 11 9-66 10 84 8-29h20c9 0 11-15 20-15s11 15 20 15h12"/>
       </defs>
       <g mask="url(#ecg-mask)" fill="none" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
         <use href="#ecg-path" class="ecg-base"/>
-        <use href="#ecg-path" class="ecg-pulse" stroke-width="2.2"/>
+        <use href="#ecg-cx" class="ecg-cx" stroke-width="2.2" style="--k:0"/>
+        <use href="#ecg-cx" class="ecg-cx" x="300" stroke-width="2.2" style="--k:1"/>
+        <use href="#ecg-cx" class="ecg-cx" x="600" stroke-width="2.2" style="--k:2"/>
+        <use href="#ecg-cx" class="ecg-cx" x="900" stroke-width="2.2" style="--k:3"/>
+
       </g>
     </svg>
   </div>
@@ -676,7 +683,17 @@
   /* ---- Preview ribbon ---- */
   if (SITE_CONFIG.PREVIEW_MODE) { $('preview-ribbon').hidden = false; }
 
+  /* ---- Heartbeat: derive the "writing finishes here" points from the timing knobs in the <head> ---- */
+  (function () {
+    function secs(v) { v = String(v || '').trim(); var n = parseFloat(v); return /ms$/.test(v) ? n / 1000 : n; }
+    var cs = window.getComputedStyle(root);
+    var beat = secs(cs.getPropertyValue('--beat')), sw = secs(cs.getPropertyValue('--sweep')), ss = secs(cs.getPropertyValue('--strip-sweep'));
+    if (beat > 0 && sw > 0) { root.style.setProperty('--sweep-end', Math.min(90, sw / beat * 100).toFixed(3) + '%'); }
+    if (beat > 0 && ss > 0) { root.style.setProperty('--cx-end', Math.min(60, ss / (beat * 4) * 100).toFixed(3) + '%'); }
+  })();
+
   /* ---- PulseLink marks: animated sweep symbol normally, static symbol while the tab is hidden ---- */
+
   function setMarks(symbolId) {
     var uses = doc.querySelectorAll('.pl-mark use');
     for (var i = 0; i < uses.length; i++) { uses[i].setAttribute('href', '#' + symbolId); }
@@ -714,11 +731,16 @@
     $('pulselink-app').hidden = false;
   })();
 
-  /* ---- Pause the heartbeat while the tab is hidden (marks fall back to the static symbol; beats restart in step) ---- */
+  /* ---- Pause the heartbeat while the tab is hidden. On return every animation restarts from zero together:
+     the marks are rebuilt by the symbol swap, so everything else is rewound to match and stays in one rhythm. ---- */
   doc.addEventListener('visibilitychange', function () {
     root.classList.toggle('tab-hidden', doc.hidden);
     setMarks(doc.hidden ? 'pl-mark' : 'pl-mark-sweep');
+    if (!doc.hidden && doc.getAnimations) {
+      doc.getAnimations().forEach(function (a) { try { a.currentTime = 0; } catch (e) {} });
+    }
   });
+
 
   /* ---- Header border on scroll ---- */
   var header = $('site-header');
