@@ -1,0 +1,4 @@
+# Local preview screenshots - never publish
+preview-*.png
+# Build tooling (Tailwind standalone CLI binary) - never publish
+tools/
