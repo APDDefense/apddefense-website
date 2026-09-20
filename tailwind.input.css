@@ -178,8 +178,12 @@
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
     .mark-tip-r { opacity: .45; animation: mark-tip-right var(--beat) linear infinite;
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
-    /* Shield lub-dub once per beat. The delay lands the "lub" as the writing point crosses the R spike (45% along). */
-    .pl-mark { animation: shield-beat var(--beat) ease-out infinite; animation-delay: calc(var(--sweep) * .45 + var(--phase-delay, 0s)); animation-play-state: var(--play, running); }
+    /* Shield lub-dub, twice per beat, locked to the trace. No offset of its own: the pulse times are
+       percentages of the beat in the keyframes below, so they cannot slide against the sweep. The old rule
+       used animation-delay: calc(var(--sweep) * .45) -- an ABSOLUTE offset against a beat-relative
+       animation -- so the alignment was only ever correct at the one --sweep value it was tuned at.
+       --phase-delay is still honoured, so the ?freeze= preview aid can still hold a still frame. */
+    .pl-mark { animation: shield-beat var(--beat) ease-out infinite; animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
     html.tab-hidden .ecg-pulse, html.tab-hidden .pl-mark, html.tab-hidden .blink { animation-play-state: paused; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -200,9 +204,28 @@
   @keyframes mark-tip-left { 0% { opacity: 1; } 14% { opacity: 1; } 100% { opacity: .45; } }
   @keyframes mark-tip-right { 0% { opacity: .45; } 13.3% { opacity: .45; }
                              14% { opacity: 1; } 100% { opacity: .45; } }
-  /* Percentages of a 3s beat: lub (S1) peaks at 0.06s, dub (S2) peaks 0.3s later (0.36s), then the long rest.
-     If --beat changes, rescale these so the lub-dub keeps its ~0.3s spacing. */
-  @keyframes shield-beat { 0% { transform: scale(1); } 2% { transform: scale(1.03); } 6% { transform: scale(1); } 10% { transform: scale(1); } 12% { transform: scale(1.016); } 16%, 100% { transform: scale(1); } }
+  /* Shield pulses, timed to the two features of the trace a viewer can actually see:
+       pulse 1  atrial       peaks as the writing point crosses the P wave  (the small early bump)
+       pulse 2  ventricular  peaks as the writing point crosses the R spike (the tall QRS peak), and is
+                             deliberately the larger of the two, because the R spike is much taller.
+     The percentages are not guesses. The sweep advances by PATH LENGTH, not by x, so they come from the
+     trace's own arc length (getPointAtLength on the real path, total 171.5646 user units):
+       P peak (22, 51.5)   arc fraction 0.06530  x 14% = 0.914% of beat =  27.4ms @ 3s
+       Q trough (42.5, 66) arc fraction 0.22685  x 14% = 3.176%         =  95.3ms  (shield at rest here)
+       R peak (48.2, 30)   arc fraction 0.43930  x 14% = 6.150%         = 184.5ms
+       end QRS (60, 58)    arc fraction 0.77430  x 14% = 10.840%        = 325.2ms
+     SAME COUPLING AS THE 14% ABOVE: these are (arc fraction x 14%). If --sweep or --beat changes, the
+     writing window changes and these must be rescaled with it.
+     0% and 100% are both scale(1), so the loop point has no discontinuity.
+     Amplitudes are knobs in index.html's :root -- change those two numbers, not these percentages. */
+  @keyframes shield-beat {
+    0%     { transform: scale(1); }
+    0.914% { transform: scale(var(--pulse-atrial, 1.010)); }
+    3.2%   { transform: scale(1); }
+    6.15%  { transform: scale(var(--pulse-ventricular, 1.034)); }
+    11%    { transform: scale(1); }
+    100%   { transform: scale(1); }
+  }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 
   /* Scroll reveal: progressive enhancement. Content is fully visible unless JS

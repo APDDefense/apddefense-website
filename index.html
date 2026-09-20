@@ -36,15 +36,24 @@
      PulseLink logo:
        --beat          one heartbeat, in seconds = 60 / bpm.   3s = 20 bpm   (2s = 30 bpm, 1s = 60 bpm)
        --sweep         how long the monitor takes to write the logo trace on each beat (the "scrolling speed").
-                       This alone sets the shield's lub-dub offset. The sweep's own "writing finishes here"
-                       point is a literal 14% keyframe in tailwind.input.css (= 0.42s of a 3s beat), so
-                       retiming the sweep DOES need a rebuild: change --sweep here and the 14% (and the right
-                       tip's 13.3%) there together. It stopped being a derived --sweep-end variable in
-                       site-v1.4.1, which fixed a Blink-only flash at the loop point.
+                       The sweep's "writing finishes here" point is a literal 14% keyframe in
+                       tailwind.input.css (= 0.42s of a 3s beat), so retiming the sweep DOES need a rebuild:
+                       change --sweep here and the 14% (and the right tip's 13.3%) there together. It stopped
+                       being a derived --sweep-end variable in site-v1.4.1, which fixed a Blink-only flash at
+                       the loop point. The two shield pulses are pinned to the same 14% window, so they need
+                       rescaling then too -- see the shield-beat comment in tailwind.input.css.
+       --pulse-atrial  how far the shield swells on the FIRST pulse, as the sweep crosses the P wave (the
+                       small early bump). 1 = no movement at all.
+       --pulse-ventricular
+                       the SECOND pulse, as the sweep crosses the R spike. Deliberately the larger of the
+                       two, because the R spike is much the taller feature. These two are the only lub-dub
+                       knobs that need no rebuild. WHEN each pulse fires is a percentage of the beat derived
+                       from the trace's arc length; moving those would break the alignment they exist to
+                       create, so tune presence with these amplitudes (or the decay), never with the timing.
      Page-wide hero EKG trace:
        --strip-period  one loop of the green pulse across the whole strip. Deliberately INDEPENDENT of --beat:
                        the hero traces continuously at its own speed, and retuning one never moves the other. */
-  :root { --beat: 3s; --sweep: 0.42s; --strip-period: 2.667s; }
+  :root { --beat: 3s; --sweep: 0.42s; --strip-period: 2.667s; --pulse-atrial: 1.010; --pulse-ventricular: 1.034; }
 
 
 </style>
