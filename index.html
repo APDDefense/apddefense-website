@@ -32,15 +32,19 @@
   a { color: #5FD4A0; }
   img, svg { max-width: 100%; }
   [hidden] { display: none !important; }
-  /* ANIMATION TIMING - edit here; no rebuild needed.
+  /* ANIMATION TIMING - edit here; no rebuild needed EXCEPT where noted.
      PulseLink logo:
        --beat          one heartbeat, in seconds = 60 / bpm.   3s = 20 bpm   (2s = 30 bpm, 1s = 60 bpm)
        --sweep         how long the monitor takes to write the logo trace on each beat (the "scrolling speed").
-       --sweep-end     derived (sweep / beat); the script recomputes it from the two above.
+                       This alone sets the shield's lub-dub offset. The sweep's own "writing finishes here"
+                       point is a literal 14% keyframe in tailwind.input.css (= 0.42s of a 3s beat), so
+                       retiming the sweep DOES need a rebuild: change --sweep here and the 14% (and the right
+                       tip's 13.3%) there together. It stopped being a derived --sweep-end variable in
+                       site-v1.4.1, which fixed a Blink-only flash at the loop point.
      Page-wide hero EKG trace:
        --strip-period  one loop of the green pulse across the whole strip. Deliberately INDEPENDENT of --beat:
                        the hero traces continuously at its own speed, and retuning one never moves the other. */
-  :root { --beat: 3s; --sweep: 0.42s; --sweep-end: 14%; --strip-period: 2.667s; }
+  :root { --beat: 3s; --sweep: 0.42s; --strip-period: 2.667s; }
 
 
 </style>
@@ -796,13 +800,10 @@
   /* ---- Preview ribbon ---- */
   if (SITE_CONFIG.PREVIEW_MODE) { $('preview-ribbon').hidden = false; }
 
-  /* ---- Logo heartbeat: derive the "writing finishes here" point from the timing knobs in the <head> ---- */
-  (function () {
-    function secs(v) { v = String(v || '').trim(); var n = parseFloat(v); return /ms$/.test(v) ? n / 1000 : n; }
-    var cs = window.getComputedStyle(root);
-    var beat = secs(cs.getPropertyValue('--beat')), sw = secs(cs.getPropertyValue('--sweep'));
-    if (beat > 0 && sw > 0) { root.style.setProperty('--sweep-end', Math.min(90, sw / beat * 100).toFixed(3) + '%'); }
-  })();
+  /* The "writing finishes here" point used to be derived here into a --sweep-end custom property, which fed
+     four linear() easings. That is gone as of site-v1.4.1: the point is now a literal 14% keyframe in
+     assets/site.css, because the two-animations-plus-linear() arrangement let Blink paint one frame of the
+     completed trace at full brightness at each loop point. Nothing reads --sweep-end any more. */
 
   /* ---- PulseLink marks: animated sweep symbol normally, static symbol while the tab is hidden ---- */
 

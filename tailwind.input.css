@@ -130,8 +130,9 @@
 
   /* Hero vitals trace + PulseLink heartbeat. Timing lives in the inline <style> in index.html:
        --beat          PulseLink logo heartbeat (3s = 20 bpm). The logo sweep and the shield lub-dub repeat on it.
-       --sweep         how long the monitor takes to write the logo trace on each beat (absolute).
-       --sweep-end     derived "writing finishes here" point (sweep / beat); the script recomputes it.
+       --sweep         how long the monitor takes to write the logo trace on each beat (absolute). It sets the
+                       shield's lub-dub offset here; the sweep's own "writing finishes here" point is the
+                       literal 14% keyframe further down (= 0.42s / 3s), so change both together.
        --strip-period  one loop of the green pulse along the page-wide hero trace. Deliberately independent of
                        --beat: the hero traces continuously at its own speed and never waits for the logo.
      Nothing glows. */
@@ -149,26 +150,23 @@
     .mark-static { display: none; }
     .mark-old, .mark-new, .mark-tip-l, .mark-tip-r { display: inline; }
     /* EKG-monitor sweep: .mark-new is the trace being written left to right; .mark-old is the previous (faded)
-       pass, erased just ahead of the writing point, so the moving gap shows where "now" is. */
+       pass, erased just ahead of the writing point, so the moving gap shows where "now" is.
+       ONE animation per layer, and the "writing finishes here" point is the literal 14% keyframe below.
+       This was two animations on .mark-new plus linear() easings steered by --sweep-end. In Blink the wrap
+       could apply the fresh opacity (.45 -> 1) a frame before the fresh stroke-dashoffset (0 -> 1), which
+       painted the completed trace at full brightness for one frame just before the sweep redrew it.
+       Safari never showed it. See site-v1.4.1. Keep it one animation per layer. */
     .mark-new { stroke-dasharray: 1 1.3; stroke-dashoffset: 1;
-      animation: sweep-new var(--beat) linear infinite, trace-fade var(--beat) linear infinite;
+      animation: mark-write var(--beat) linear infinite;
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
     .mark-old { opacity: .45; stroke-dasharray: 1 1.3; stroke-dashoffset: -.14;
-      animation: sweep-old var(--beat) linear infinite;
+      animation: mark-erase var(--beat) linear infinite;
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
     /* Left tip is where writing starts; the right tip stays with the faded old trace until the sweep reaches it. */
-    .mark-tip-l { animation: trace-fade var(--beat) linear infinite;
+    .mark-tip-l { animation: mark-tip-left var(--beat) linear infinite;
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
-    .mark-tip-r { opacity: .45; animation: tip-arrive var(--beat) linear infinite;
+    .mark-tip-r { opacity: .45; animation: mark-tip-right var(--beat) linear infinite;
       animation-delay: var(--phase-delay, 0s); animation-play-state: var(--play, running); }
-    /* Write fast, then rest: linear() compresses the draw into the first --sweep-end of each beat.
-       Browsers without linear() fall back to drawing across the whole beat. */
-    @supports (animation-timing-function: linear(0, 1)) {
-      .mark-new { animation-timing-function: linear(0, 1 var(--sweep-end), 1), linear(0, 0 var(--sweep-end), 1); }
-      .mark-old { animation-timing-function: linear(0, 1 var(--sweep-end), 1); }
-      .mark-tip-l { animation-timing-function: linear(0, 0 var(--sweep-end), 1); }
-      .mark-tip-r { animation-timing-function: linear(0, 0 calc(var(--sweep-end) * .95), 1 var(--sweep-end), 0); }
-    }
     /* Shield lub-dub once per beat. The delay lands the "lub" as the writing point crosses the R spike (45% along). */
     .pl-mark { animation: shield-beat var(--beat) ease-out infinite; animation-delay: calc(var(--sweep) * .45 + var(--phase-delay, 0s)); animation-play-state: var(--play, running); }
     html.tab-hidden .ecg-pulse, html.tab-hidden .pl-mark, html.tab-hidden .blink { animation-play-state: paused; }
@@ -178,10 +176,19 @@
     .card, .btn, .field, .site-header, .nav-link { transition: none; }
   }
   @keyframes ecg-beat { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1000; } }
-  @keyframes sweep-new { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  @keyframes sweep-old { from { stroke-dashoffset: -.14; } to { stroke-dashoffset: -1.14; } }
-  @keyframes trace-fade { from { opacity: 1; } to { opacity: .45; } }
-  @keyframes tip-arrive { from { opacity: .45; } to { opacity: 1; } }
+  /* The mark's four layers, one animation each. 14% is the writing point: 0.42s of a 3s beat.
+     Each layer both draws and fades inside ONE animation, so no two animations can wrap a frame apart
+     (that was the site-v1.4.1 flash). If --sweep or --beat changes, rescale the 14% here -- and the
+     right tip's 13.3%, which is 14% * .95 -- to match. */
+  @keyframes mark-write { 0% { stroke-dashoffset: 1; opacity: 1; }
+                         14% { stroke-dashoffset: 0; opacity: 1; }
+                        100% { stroke-dashoffset: 0; opacity: .45; } }
+  @keyframes mark-erase { 0% { stroke-dashoffset: -.14; }
+                         14% { stroke-dashoffset: -1.14; }
+                        100% { stroke-dashoffset: -1.14; } }
+  @keyframes mark-tip-left { 0% { opacity: 1; } 14% { opacity: 1; } 100% { opacity: .45; } }
+  @keyframes mark-tip-right { 0% { opacity: .45; } 13.3% { opacity: .45; }
+                             14% { opacity: 1; } 100% { opacity: .45; } }
   /* Percentages of a 3s beat: lub (S1) peaks at 0.06s, dub (S2) peaks 0.3s later (0.36s), then the long rest.
      If --beat changes, rescale these so the lub-dub keeps its ~0.3s spacing. */
   @keyframes shield-beat { 0% { transform: scale(1); } 2% { transform: scale(1.03); } 6% { transform: scale(1); } 10% { transform: scale(1); } 12% { transform: scale(1.016); } 16%, 100% { transform: scale(1); } }
