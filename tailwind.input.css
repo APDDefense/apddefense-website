@@ -1,4 +1,15 @@
-/* Source for assets/site.css. Rebuild: tools/tailwindcss.exe -c tailwind.config.js -i tailwind.input.css -o assets/site.css --minify */
+/* Source for assets/site.css.
+   Rebuild: tools/tailwindcss.exe -c tailwind.config.js -i tailwind.input.css -o assets/site.css --minify
+
+   Verifying a deploy: compare the fetched file against the COMMITTED BLOB, never the working copy --
+     curl -s https://apddefense.com/assets/site.css | cmp - <(git show HEAD:assets/site.css)
+   This repo has core.autocrlf=true and no .gitattributes, so a working-tree text file can carry CRLF
+   while its blob -- which is what GitHub Pages actually serves -- has LF. Hashing the working copy
+   against the live URL then never matches, even when the deploy is perfectly correct.
+   It is file-specific, not repo-wide, and the affected set DRIFTS over time: a file keeps whatever
+   line endings the tool that last rewrote it emitted. Measured 2026-09-20, assets/site.css (1 CR) and
+   this file (230) differed from their blobs while index.html, tailwind.config.js and CNAME did not.
+   That is why the rule is "compare against the blob", not "remember which files are affected". */
   :root {
     --bg: #0B0F14;
     --panel: #10161D;
