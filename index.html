@@ -415,12 +415,10 @@
       </article>
 
       <article class="panel brk brk-slate card reveal p-7 flex flex-col" style="padding:1.75rem;--d:270ms" aria-labelledby="f11-title">
-        <p class="mono text-sm" style="margin:0;color:var(--accent)">USGS topo &middot; OSM-derived</p>
+        <p class="mono text-sm" style="margin:0;color:var(--accent)">USGS topo &middot; downloaded in the app</p>
         <h3 id="f11-title" class="mt-3 text-xl font-semibold">Offline topo maps</h3>
-        <p class="mt-3" style="color:var(--muted)">Load the map for your area before you go &mdash; USGS topo across the US, OpenStreetMap-derived tiles elsewhere, with the credit shown on the map. Once you&rsquo;re out, the map needs no network at all.</p>
-        <div class="mt-auto" style="padding-top:1rem;margin-top:auto">
-          <span class="tag tag-roadmap"><svg width="12" height="12" aria-hidden="true"><use href="#i-roadmap"/></svg>In-app downloads coming</span>
-        </div>
+        <p class="mt-3" style="color:var(--muted)">Pick your area, choose the zoom levels and see the size before anything downloads. It shows progress, and picks up where it left off if the signal drops. USGS topo covers the US; elsewhere you prepare tiles on a PC and copy them over.</p>
+        <p class="mt-3" style="color:var(--muted)">Download before you go, not during: once you&rsquo;re out, the map needs no network at all.</p>
       </article>
 
       <article class="panel brk brk-slate card reveal p-7" style="padding:1.75rem;--d:180ms" aria-labelledby="f6-title">
@@ -593,7 +591,9 @@
         <dl class="mt-5" style="margin-bottom:0">
           <div class="status-row"><dt class="status-name">Platform</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Android</dd></div>
           <div class="status-row"><dt class="status-name">Network use</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Map tiles only, loaded in advance; no accounts or servers</dd></div>
-          <div class="status-row"><dt class="status-name">Offline maps</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">USGS topo (US) &middot; OSM-derived elsewhere, credited</dd></div>
+          <div class="status-row"><dt class="status-name">Offline maps</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">USGS topo (US) in the app &middot; OSM-derived via PC tool, credited</dd></div>
+          <div class="status-row"><dt class="status-name">Map downloads</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">Area, zooms, size estimate, progress, resume &middot; off by default</dd></div>
+          <div class="status-row"><dt class="status-name">Map size</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">About 25&nbsp;KB per tile; a county at zoom 12&ndash;15 is roughly 50&ndash;150&nbsp;MB</dd></div>
           <div class="status-row"><dt class="status-name">Triage</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">4 categories &middot; live tally &middot; filters</dd></div>
           <div class="status-row"><dt class="status-name">Treatment record</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">MARCH checklist</dd></div>
           <div class="status-row"><dt class="status-name">MEDEVAC</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">9-line builder &middot; large-type read-off card</dd></div>
@@ -602,7 +602,6 @@
           <div class="status-row"><dt class="status-name">Training</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">13 built-in scenarios, clearly marked</dd></div>
           <div class="status-row"><dt class="status-name">Display</dt><dd class="mono text-sm" style="margin:0;color:var(--muted);text-align:right">True black, for OLED screens</dd></div>
           <div class="status-row"><dt class="status-name">Send 9-line as CoT</dt><dd style="margin:0;text-align:right"><span class="tag tag-partial"><svg width="12" height="12" aria-hidden="true"><use href="#i-partial"/></svg>Built &middot; end-to-end test next</span></dd></div>
-          <div class="status-row"><dt class="status-name">In-app map downloads</dt><dd style="margin:0;text-align:right"><span class="tag tag-roadmap"><svg width="12" height="12" aria-hidden="true"><use href="#i-roadmap"/></svg>Coming &middot; optional, off by default</span></dd></div>
           <div class="status-row"><dt class="status-name">Key management app</dt><dd style="margin:0;text-align:right"><span class="tag tag-roadmap"><svg width="12" height="12" aria-hidden="true"><use href="#i-roadmap"/></svg>Coming</span></dd></div>
         </dl>
       </article>
