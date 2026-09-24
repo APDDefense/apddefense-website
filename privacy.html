@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy | APD Defense, LLC</title>
+<meta name="description" content="How PulseLink, CommandLink and TerraLink handle your data. APD Defense operates no server for these apps: your records stay on your phone.">
+<meta name="theme-color" content="#0B0F14">
+<meta name="color-scheme" content="dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="index,follow">
+
+
+<style>
+  :root {
+    --ink:#0B0F14; --panel:#10161D; --line:#1F2A36; --linestrong:#2E3D4D;
+    --fg:#E6EBF0; --muted:#A3AFBB; --dim:#8392A1; --accent:#5FD4A0; --amber:#E3B25A;
+    --sans: "Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Roboto,Arial,sans-serif;
+    --mono: ui-monospace,"Cascadia Mono","SF Mono","JetBrains Mono",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--ink); color:var(--fg);
+    font-family:var(--sans); line-height:1.65; font-size:1rem;
+  }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(95,212,160,.35); }
+  a:hover, a:focus { border-bottom-color:var(--accent); }
+  .skip-link {
+    position:absolute; left:-9999px; top:0; background:var(--panel); color:var(--fg);
+    padding:.75rem 1rem; border:1px solid var(--linestrong); z-index:50;
+  }
+  .skip-link:focus { left:.5rem; top:.5rem; }
+  .wrap { width:100%; max-width:52rem; margin:0 auto; padding:0 16px; }
+
+  header.site-header {
+    border-bottom:1px solid var(--line); background:rgba(11,15,20,.92);
+    position:sticky; top:0; backdrop-filter:blur(6px); z-index:20;
+  }
+  .headrow { display:flex; align-items:center; justify-content:space-between; gap:1rem; height:4rem; }
+  .brand { display:flex; align-items:center; gap:.6rem; color:var(--fg); border:0; }
+  .brand-name { font-weight:700; letter-spacing:.04em; font-size:1rem; }
+  .brand-mark {
+    width:30px; height:30px; flex:0 0 auto; border:2px solid var(--accent);
+    border-radius:4px 4px 12px 12px;
+  }
+  .nav-link { color:var(--muted); border:0; font-size:.9rem; letter-spacing:.02em; }
+  .nav-link:hover { color:var(--fg); }
+
+  main { padding:3rem 0 4rem; }
+  .eyebrow {
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 .75rem;
+  }
+  h1 { font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.15; margin:0 0 1rem; letter-spacing:-.01em; }
+  h2 {
+    font-size:clamp(1.25rem,3.4vw,1.6rem); line-height:1.25; margin:3rem 0 .85rem;
+    padding-top:1.75rem; border-top:1px solid var(--line); letter-spacing:-.005em;
+  }
+  h3 { font-size:1.05rem; margin:2rem 0 .6rem; color:var(--fg); letter-spacing:.01em; }
+  p, ul, ol { margin:0 0 1rem; }
+  ul, ol { padding-left:1.25rem; }
+  li { margin:.4rem 0; }
+  li::marker { color:var(--dim); }
+  strong { color:#F2F6FA; font-weight:650; }
+  .lede { color:var(--muted); font-size:1.075rem; }
+  .stamp {
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; color:var(--dim);
+    margin:0 0 2rem;
+  }
+  .panel {
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:1.25rem 1.25rem .5rem; margin:0 0 1.5rem;
+  }
+  .panel > :last-child { margin-bottom:1rem; }
+  .callout {
+    background:var(--panel); border:1px solid var(--linestrong); border-left:3px solid var(--amber);
+    border-radius:6px; padding:1.1rem 1.25rem .35rem; margin:1.5rem 0;
+  }
+  .callout > :last-child { margin-bottom:1.1rem; }
+  .callout .label {
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--amber); display:block; margin-bottom:.5rem;
+  }
+  .tableWrap { overflow-x:auto; margin:0 0 1.5rem; border:1px solid var(--line); border-radius:8px; }
+  table { border-collapse:collapse; width:100%; min-width:34rem; font-size:.9rem; }
+  caption {
+    text-align:left; padding:.85rem 1rem .1rem; color:var(--dim);
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  }
+  th, td { text-align:left; vertical-align:top; padding:.7rem 1rem; border-top:1px solid var(--line); }
+  thead th {
+    color:var(--muted); font-weight:600; font-size:.78rem; letter-spacing:.08em;
+    text-transform:uppercase; border-top:0; background:rgba(31,42,54,.35);
+  }
+  tbody tr:nth-child(even) { background:rgba(31,42,54,.18); }
+  code, .mono { font-family:var(--mono); font-size:.88em; }
+  code { color:var(--accent); background:rgba(95,212,160,.08); padding:.1em .35em; border-radius:3px; }
+  .toc { columns:2; column-gap:2rem; font-size:.92rem; }
+  .toc li { break-inside:avoid; }
+  @media (max-width:36rem) { .toc { columns:1; } }
+  hr.rule { border:0; border-top:1px solid var(--line); margin:3rem 0 0; }
+
+  footer.site-footer { border-top:1px solid var(--line); background:#090C11; padding:3rem 0; }
+  footer .small { color:var(--dim); font-size:.85rem; max-width:52rem; }
+  footer .copy { font-family:var(--mono); letter-spacing:.06em; margin:1.5rem 0 0; }
+
+  @media print {
+    body { background:#fff; color:#111; }
+    header.site-header, .skip-link { display:none; }
+    a { color:#111; border:0; }
+    .panel, .callout, .tableWrap { border-color:#bbb; background:#fff; }
+    thead th, tbody tr:nth-child(even) { background:#f2f2f2; }
+    code { color:#111; background:#eee; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap headrow">
+    <a class="brand" href="/" aria-label="APD Defense, LLC - home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">APD&nbsp;Defense, LLC</span>
+    </a>
+    <nav aria-label="Primary">
+      <a class="nav-link" href="mailto:support@apddefense.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <p class="eyebrow">APD Defense, LLC</p>
+  <h1>Privacy Policy</h1>
+  <p class="lede">One policy, covering three Android apps: <strong>PulseLink</strong>,
+    <strong>CommandLink</strong> and <strong>TerraLink</strong>.</p>
+  <p class="stamp">Effective date: September&nbsp;24,&nbsp;2026 &nbsp;·&nbsp; Version 1.1</p>
+
+  <h2 id="short">In short</h2>
+  <p>These three Android apps are companions to an APD Defense encrypted mesh radio. They are built
+    to work with no cell service and no internet.</p>
+  <div class="panel">
+    <ul>
+      <li><strong>We do not collect your data.</strong> APD Defense operates no server for these
+        apps. Nothing you enter or record is sent to us. We cannot see it.</li>
+      <li><strong>There are no ads, no analytics, no trackers and no crash reporting
+        services.</strong> We checked the code, not just our intentions: there is no advertising
+        library, no analytics library, no crash reporting library and no Google Play Services
+        dependency in any of the three apps.</li>
+      <li><strong>You need no account.</strong> There is nothing to sign up for and no login.</li>
+      <li><strong>Your records stay on your phone</strong>, in each app's private storage, which
+        other apps on the phone cannot read.</li>
+      <li><strong>What leaves the phone goes over your radio</strong>, to the other radios on your
+        own net, encrypted and authenticated by the radio hardware &mdash; and only when you send
+        it.</li>
+      <li><strong>These apps are prototypes.</strong> They are not medical devices, they are not FDA
+        cleared, and they are not certified or approved for any purpose.</li>
+    </ul>
+  </div>
+  <p>The rest of this policy says exactly what each app holds, where it holds it, and what can
+    leave.</p>
+
+  <ul class="toc">
+    <li><a href="#who">Who we are</a></li>
+    <li><a href="#apps">The apps this policy covers</a></li>
+    <li><a href="#storage">What each app stores, and where</a></li>
+    <li><a href="#health">Health information in PulseLink</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#permissions">Permissions, and why each one exists</a></li>
+    <li><a href="#thirdparty">Analytics, advertising and third-party code</a></li>
+    <li><a href="#offline">Working offline</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#retention">How long we keep things, and how you delete them</a></li>
+    <li><a href="#children">Children</a></li>
+    <li><a href="#changes">Changes to this policy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <h2 id="who">Who we are</h2>
+  <p><strong>APD Defense, LLC</strong><br>
+    Idaho, United States<br>
+    Email: <a href="mailto:support@apddefense.com">support@apddefense.com</a><br>
+    Web: <a href="https://apddefense.com/">apddefense.com</a></p>
+  <p>For any privacy question, or to ask us anything about this policy, email the address above.</p>
+
+  <h2 id="apps">The apps this policy covers</h2>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>App</th><th>Package name</th><th>Who it is for</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PulseLink</strong></td><td><code>com.apddefense.pulselink</code></td>
+          <td>A medic. Casualty triage records, MARCH treatment notes, the 9-line MEDEVAC request, a
+            mission archive.</td></tr>
+        <tr><td><strong>CommandLink</strong></td><td><code>com.apddefense.tacticalradio</code></td>
+          <td>A leader or radio administrator. Radio link and diagnostics, messaging, map, network
+            key management, radio firmware updates.</td></tr>
+        <tr><td><strong>TerraLink</strong></td><td><code>com.apddefense.civ</code></td>
+          <td>A handheld radio user, civilian or general government. Messaging, who is on the net,
+            maps, network keys for the user's own radio.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>All three connect to an APD Defense radio over a USB cable. CommandLink can also connect over
+    Bluetooth Low Energy. All three also run without any radio attached, in <strong>Training
+    Mode</strong>, where everything on screen is made up.</p>
+
+  <h2 id="storage">What each app stores, and where</h2>
+  <p>Everything listed here is stored in the app's own <strong>private storage on your phone</strong>
+    &mdash; the area Android gives each app and keeps other apps out of. It is protected by your
+    phone's own encryption and your lock screen. None of it is uploaded anywhere.</p>
+
+  <h3>PulseLink</h3>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>What</th><th>Where it is kept</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Mission setup: your call sign, mission name, MEDEVAC frequency, receiving station
+          call sign, map sheet, grid zone, magnetic declination, free-text notes</td>
+          <td>App-private preferences</td><td>Typed by you</td></tr>
+        <tr><td>Squad roster: names and call signs you enter</td><td>App-private preferences</td>
+          <td>Typed by you; used to put names on cards instead of radio numbers</td></tr>
+        <tr><td>Radios you have registered, and radios you have marked lost</td>
+          <td>App-private preferences</td><td>Radio labels, scanned or typed</td></tr>
+        <tr><td><strong>Mission archive</strong>: one file per finished mission &mdash; casualty
+          names and call signs, triage category, the MARCH checklist, tourniquet times, what
+          treatment you recorded, dispositions, and the positions that were reported</td>
+          <td>App-private files</td>
+          <td><strong>Capped at 10 missions and 30 days.</strong> Older or surplus missions are
+            deleted automatically, both at app start and after every write. Records are never
+            edited, only added or deleted.</td></tr>
+        <tr><td>Readings received from radios</td>
+          <td>In memory while the app runs; written into the archive when a mission ends</td>
+          <td>See <a href="#vitals">Vital signs</a></td></tr>
+        <tr><td>A 4-character random tag generated once per install</td>
+          <td>App-private preferences</td>
+          <td>Used to make each 9-line request uniquely identifiable so a re-send updates one marker
+            instead of creating a second. It is not a device identifier and is not derived from your
+            phone.</td></tr>
+        <tr><td>Your unit preference (feet/miles or meters/kilometers), map and display settings</td>
+          <td>App-private preferences</td><td></td></tr>
+        <tr><td>A record of the last app crash, if one ever happened: the time and the technical
+          stack trace</td><td>One app-private file</td>
+          <td>Shown in Settings as a time. <strong>Never sent anywhere.</strong> Only the most recent
+            one is kept.</td></tr>
+        <tr><td>Offline map files you downloaded</td><td>App-private files</td>
+          <td>See <a href="#thirdparty">the one thing that reaches the internet</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Training Mode is never saved. The app always starts live, and training missions are never
+    written to the archive.</p>
+
+  <h3>CommandLink</h3>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>What</th><th>Where it is kept</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Your call sign, and a random app-generated identifier (<code>APD-</code> plus 8
+          characters)</td><td>App-private preferences</td>
+          <td>The identifier goes over the radio inside your position and message reports so
+            receivers can tell reports apart. It is randomly generated by the app. It is not your
+            phone's advertising ID, IMEI, MAC address or serial number, and we do not read any of
+            those.</td></tr>
+        <tr><td>Your radio inventory: the radios you have registered, and who you noted is carrying
+          them</td><td>App-private preferences</td><td></td></tr>
+        <tr><td><strong>Network keys</strong> for the radio net, if you generate or scan any</td>
+          <td>App-private preferences, each key <strong>encrypted with AES-256-GCM under a key held
+            in the Android hardware key store</strong></td>
+          <td>Shown only after your phone's own unlock. Never logged, never copyable to the
+            clipboard. A key leaves the phone only when you choose <strong>Load To
+            Radio</strong>, and then only to the radio on the <strong>USB cable</strong> (never over
+            Bluetooth, never to us). <strong>Delete All Keys</strong> destroys the hardware
+            key store key as well, so any remaining bytes are unreadable.</td></tr>
+        <tr><td>A key scanned for <strong>Fill Radio</strong></td>
+          <td><strong>In memory only</strong>, for at most 5 minutes</td>
+          <td>Never stored. Wiped when the radio reports it loaded, on Done or Discard, or when you
+            leave the screen.</td></tr>
+        <tr><td>The hardware IDs of radios this phone has seen with an owner lock</td>
+          <td>App-private preferences</td>
+          <td>Used to warn you if such a radio later claims to be factory-fresh. Not secret: the IDs
+            are printed on the radios' labels.</td></tr>
+        <tr><td>An administrator PIN, if you set one</td>
+          <td>Stored only as a salted <strong>PBKDF2-HMAC-SHA256</strong> hash, itself encrypted
+            under a hardware key store key</td>
+          <td>The digits are never stored. Wrong entries are counted and lock the screen for a
+            while.</td></tr>
+        <tr><td><strong>Leader mission archive</strong>: one file per finished mission &mdash; the
+          9-line MEDEVAC requests received (kept exactly as they arrived), roster pushes received,
+          messages you sent, and the radio list</td><td>App-private files</td>
+          <td><strong>Capped at 10 missions and 30 days</strong>, pruned automatically. The
+            in-progress mission is also written so a phone restart does not lose it. Received
+            9-lines can contain casualty information sent by a medic.</td></tr>
+        <tr><td>Messages received over the radio</td>
+          <td><strong>In memory only</strong>, most recent 500, for the session</td>
+          <td>Not written to disk. Messages <em>you send</em> are recorded in the mission file
+            above.</td></tr>
+        <tr><td>Map, alert-sound, ATAK bridge and USB settings</td><td>App-private preferences</td>
+          <td></td></tr>
+        <tr><td>A record of the last app crash</td><td>One app-private file</td>
+          <td>As PulseLink, above. Never sent.</td></tr>
+        <tr><td>Offline map files you downloaded</td><td>App-private files</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>CommandLink excludes all of its data from Android cloud backup <strong>and</strong> from
+    device-to-device transfer, so a key store or a mission record cannot leave the phone that
+    way.</p>
+
+  <h3>TerraLink</h3>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>What</th><th>Where it is kept</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Your name on the net, and a random app-generated identifier (<code>CIV-</code> plus 8
+          characters)</td><td>App-private preferences</td>
+          <td>Same kind of identifier as CommandLink's, above</td></tr>
+        <tr><td>Your radio list</td><td>App-private preferences</td><td></td></tr>
+        <tr><td><strong>Network keys</strong>, if you generate or scan any</td>
+          <td>App-private preferences, each key encrypted with AES-256-GCM under a key held in the
+            Android hardware key store</td>
+          <td>The same implementation as CommandLink's, above: shown only after your phone's own
+            unlock, and sent only to the radio on the USB cable when you choose <strong>Load To
+            Radio</strong>.</td></tr>
+        <tr><td>A key scanned for <strong>Fill Radio</strong>, and the hardware IDs of radios seen
+          with an owner lock</td><td>As CommandLink, above</td><td>As CommandLink, above</td></tr>
+        <tr><td>Whether you are sharing your position on the net (<strong>on by default</strong>;
+          there is a switch in Settings)</td><td>App-private preferences</td><td></td></tr>
+        <tr><td>Map and USB settings</td><td>App-private preferences</td><td></td></tr>
+        <tr><td>Messages received over the radio</td><td><strong>In memory only</strong>, for the
+          session</td><td>Not written to disk</td></tr>
+        <tr><td>A record of the last app crash</td><td>One app-private file</td>
+          <td>Never sent</td></tr>
+        <tr><td>Offline map files you downloaded</td><td>App-private files</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>TerraLink holds no casualty records, no triage and no 9-line. Those belong to PulseLink and
+    CommandLink. TerraLink excludes all of its data from Android cloud backup <strong>and</strong>
+    from device-to-device transfer, as CommandLink does.</p>
+
+  <h2 id="health">Health information in PulseLink</h2>
+  <p>This is the most sensitive information any of the three apps handles, so it gets its own
+    section.</p>
+  <p><strong>What PulseLink holds.</strong> Casualty records you create: a name and call sign from
+    the roster you typed, the triage category shown for that person, the MARCH checklist and
+    tourniquet times you recorded, what treatment you noted, the disposition you set, the last
+    position reported for them, and any readings that arrived from their radio.</p>
+  <p><strong>Where it lives.</strong> On your phone, in PulseLink's private storage. One file per
+    mission. Capped at 10 missions and 30 days and pruned automatically. No other app on the phone
+    can read it. PulseLink's records are excluded from Android cloud backup.</p>
+  <p><strong>Where it can go &mdash; exactly two routes, both of them yours.</strong></p>
+  <ol>
+    <li><strong>A 9-line MEDEVAC request you write and send.</strong> You fill it in, you review it
+      against what the app read back to you, and you press send. It goes out over the radio as a
+      broadcast to every radio on your net; a leader running CommandLink sees it as a 9-line. The
+      radio encrypts and authenticates it with the network key before it goes on the air.</li>
+    <li><strong>A roster push you choose to send</strong>, so a leader's app can show who is carrying
+      which radio. <strong>This sends call signs only unless you explicitly ask for names each
+      time</strong> &mdash; the app defaults to call signs and requires you to opt in to names on
+      every push.</li>
+  </ol>
+  <p><strong>There is no third route, and this is structural rather than a promise.</strong>
+    PulseLink contains no network code at all: no socket, no web client, no connection of any kind is
+    created anywhere in it. The part of the shared code that could relay a casualty over a network is
+    wired, in PulseLink, to an implementation that does nothing. The only thing in PulseLink's whole
+    dependency chain that can open a network connection is the map tile downloader, which only
+    fetches map images and has no access to the casualty board, the roster or a 9-line.</p>
+  <p><strong>Nothing goes to APD Defense.</strong> We have no server for these apps and no way to
+    receive a casualty record.</p>
+
+  <h3 id="vitals">Vital signs &mdash; read this before you expect any</h3>
+  <div class="callout">
+    <span class="label">Important</span>
+    <p><strong>The APD radios carry no vital-sign sensors.</strong> There is no pulse sensor, no
+      oxygen sensor and no thermometer on the radio hardware. A live radio therefore reports
+      <strong>no vitals at all</strong>, and the app shows dashes where a reading would go.</p>
+  </div>
+  <p>The apps are built so they <strong>never invent a value</strong>. &ldquo;No reading&rdquo; is
+    carried as a specific value that means &ldquo;nothing was reported&rdquo;, kept deliberately
+    distinct from a real measurement of zero, and shown on screen as dashes. A radio can report a
+    motion state &mdash; moving, still, or immobile long enough that the radio itself flags it
+    &mdash; and that is the only body-related reading the fielded hardware sends.</p>
+  <p>Made-up readings appear on screen in exactly one situation: <strong>Training Mode</strong>,
+    which paints every screen magenta, marks every card <strong>SIM</strong>, and is never saved and
+    never archived.</p>
+
+  <h3 id="notdevice">Not a medical device</h3>
+  <div class="callout">
+    <span class="label">Not a medical device</span>
+    <p>PulseLink is a <strong>prototype</strong>. It is decision support and a record-keeping aid for
+      a trained medic. It does not diagnose, monitor, treat or prevent anything, and nothing it shows
+      is a clinical finding.</p>
+    <ul>
+      <li>It is <strong>not a medical device</strong>, has <strong>no FDA clearance or
+        approval</strong>, and has not been clinically validated.</li>
+      <li>It must <strong>not</strong> be relied on for medical care, for patient monitoring, or for
+        any decision on which someone's safety depends.</li>
+      <li><strong>The medic decides.</strong> The app shows what arrived and what the medic entered,
+        and the assessment of the person on the ground overrides it in every case.</li>
+      <li>The app itself says so on screen: <strong>DECISION SUPPORT ONLY &mdash; NOT A MEDICAL
+        DEVICE.</strong></li>
+    </ul>
+  </div>
+  <p>CommandLink and TerraLink are prototypes on the same terms, and neither is a medical device
+    either.</p>
+
+  <h2 id="location">Location</h2>
+  <p><strong>What is collected.</strong> Your phone's own position, from the Android platform
+    location service, using the GPS provider and the network provider when one is available. The apps
+    do not use Google Play Services' fused location provider and do not depend on Play Services at
+    all.</p>
+  <p><strong>When.</strong> Only while a screen that needs it is open, and only after you grant the
+    location permission. Location is reference-counted: the Map screen and the 9-line form each turn
+    it on while they are showing and turn it off when they close, so the GPS is not left running in
+    your pocket. No app has background location permission, and none of them tracks you when you are
+    not using them.</p>
+  <p><strong>Where it goes.</strong></p>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>App</th><th>What happens to your position</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PulseLink</strong></td>
+          <td>Stays on the phone. It centers the map, and it can fill line 1 of a 9-line when you tap
+            <strong>USE MY POSITION</strong> &mdash; which is the only way it leaves, inside a
+            request you send.</td></tr>
+        <tr><td><strong>CommandLink</strong></td>
+          <td>Sent over the radio to the other radios on your net when the phone decides you have
+            moved (roughly 15&nbsp;m on foot, 100&nbsp;m in a vehicle, or a turn), rate-limited by
+            the radio, with a periodic heartbeat. <strong>There is a Sharing switch in Settings, and
+            it is on by default.</strong> Your choice is remembered across app restarts.</td></tr>
+        <tr><td><strong>TerraLink</strong></td>
+          <td>Same as CommandLink: shared on the net so other people can see where you are.
+            <strong>On by default</strong>, with a switch in Settings that is
+            remembered.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>What is never done.</strong> Your position is never guessed, never inferred from
+    Bluetooth, never sent to us, and never sent to any advertising or analytics service. When the
+    phone does not know where it is, the apps say <strong>NO POSITION</strong> or <strong>NO
+    FIX</strong> rather than showing a plausible-looking wrong place. A person whose position has not
+    been reported is listed as unknown and is never drawn at a guessed point on the map.</p>
+  <p>Every time on screen is marked <strong>L</strong> (local) or <strong>Z</strong> (Zulu). You choose
+    which in PulseLink's mission setup, or in Settings in CommandLink and TerraLink; local is the
+    default. Times that go inside ATAK Cursor-on-Target messages are UTC, because that is what the
+    format requires.</p>
+
+  <h2 id="permissions">Permissions, and why each one exists</h2>
+  <p>We ask for as little as we can, we ask at the moment the feature is used rather than at install,
+    and every app keeps working if you say no &mdash; with the feature that needed it turned off.</p>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>Permission</th><th>Which apps</th><th>Why</th><th>If you refuse</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Precise and approximate location</strong></td><td>All three</td>
+          <td>Your own position on the map; line 1 of a 9-line; position sharing on the net</td>
+          <td>Map is north-up with no marker for you; the app says NO POSITION; you can still type a
+            grid into a 9-line</td></tr>
+        <tr><td><strong>Camera</strong></td><td>All three</td>
+          <td>Scanning the QR code on a radio's label, and network key QR codes in CommandLink.
+            Decoded <strong>on the phone</strong> by an on-device library. No image is ever uploaded,
+            and camera frames are decoded in memory and discarded.</td>
+          <td>Type the radio's 8-digit code instead</td></tr>
+        <tr><td><strong>Internet / network state</strong></td><td>All three</td>
+          <td>Two things only: (1)&nbsp;downloading map tiles on <strong>Settings &rarr; Map
+            Data</strong>, and only while <strong>Map Downloads</strong> is switched on &mdash; it is
+            <strong>off by default</strong>; (2)&nbsp;CommandLink and TerraLink talk to ATAK on the
+            <em>same phone</em> over loopback, and Android requires this permission even for
+            127.0.0.1.</td>
+          <td>Map downloads and the ATAK bridge do not work. Everything else is unaffected.</td></tr>
+        <tr><td><strong>Notifications</strong></td><td>CommandLink, TerraLink</td>
+          <td>The persistent notification for the two background services below, each with a Stop
+            action</td>
+          <td>The service still works; Android may not show its notification</td></tr>
+        <tr><td><strong>Foreground service (connected device)</strong></td>
+          <td>CommandLink, TerraLink</td>
+          <td>Holding the radio link alive while you use another app, and running the ATAK bridge
+            while ATAK is in front. Started only when you connect a radio or turn the bridge on;
+            stopped by Disconnect, by unplugging, or by the notification's Stop. <strong>Never starts
+            at boot.</strong> The radio link service never restarts itself. The ATAK bridge can: if
+            Android stops it while it is running, Android may start it again on its own. It then shows
+            its notification again and waits for ATAK on this phone, but it does <strong>not</strong>
+            reconnect the radio, so nothing passes between ATAK and the radio until you connect one.
+            Stop in its notification ends it.</td>
+          <td>n/a (not a runtime prompt)</td></tr>
+        <tr><td><strong>Change Wi-Fi multicast state</strong></td><td>CommandLink, TerraLink</td>
+          <td>Only if you switch on the optional situational-awareness multicast output to the local
+            network; the lock is taken then and released when the bridge stops</td>
+          <td>The optional multicast output does not work</td></tr>
+        <tr><td><strong>Bluetooth scan / connect</strong></td><td>CommandLink only</td>
+          <td>Connecting to a radio over Bluetooth Low Energy. Declared as <strong>never used for
+            location</strong> &mdash; we do not derive your position from Bluetooth.</td>
+          <td>Use the USB cable instead</td></tr>
+        <tr><td><strong>USB host</strong></td><td>All three</td>
+          <td>Reaching the radio over the cable. <strong>This needs no manifest permission at
+            all</strong>: Android asks you per device with its own dialog, and plugging a known radio
+            in can launch the app.</td>
+          <td>Use Training Mode, or Bluetooth on CommandLink</td></tr>
+        <tr><td><strong>Map pack sharing</strong>
+          (<code>com.apddefense.permission.MAP_PACKS</code>)</td><td>All three</td>
+          <td>Lets the three APD apps read each other's downloaded maps, <strong>read-only</strong>,
+            so a map downloaded once serves all three. It is a <em>signature</em> permission: Android
+            grants it only to apps signed with the same key, so no other app can use it.</td>
+          <td>n/a</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Permissions we deliberately do not have:</strong> no storage or photo/media permission,
+    no contacts, no microphone, no SMS, no call log, no calendar, no background location, no
+    &ldquo;query all packages&rdquo;, no advertising identifier. Where an app needs to open or save a
+    file &mdash; a firmware image in CommandLink, or an imported map file &mdash; it uses Android's
+    own document picker, which grants access to that one file you chose and nothing else.</p>
+
+  <h2 id="thirdparty">Analytics, advertising and third-party code</h2>
+  <p><strong>There are none.</strong> No advertising SDK, no analytics SDK, no crash-reporting
+    service, no attribution or marketing SDK, no Google Play Services, no Firebase, no push service,
+    no A/B testing service, no remote configuration and no license check. Nothing in these apps
+    contacts an APD Defense server, because there is no APD Defense server for them to contact.</p>
+  <p>The third-party code the apps do include is open-source library code that runs entirely on your
+    phone and sends nothing anywhere:</p>
+  <ul>
+    <li><strong>AndroidX and Jetpack Compose</strong> (Google) &mdash; the user interface and camera
+      plumbing.</li>
+    <li><strong>Kotlin coroutines</strong> (JetBrains) &mdash; background work.</li>
+    <li><strong>ZXing core</strong> &mdash; decoding and drawing QR codes, on the device.</li>
+    <li><strong>usb-serial-for-android</strong> &mdash; talking to the radio over the USB cable.</li>
+  </ul>
+  <h3>The one thing that reaches the internet</h3>
+  <p>If, and only if, you switch on <strong>Map Downloads</strong> and choose an area, the app
+    fetches map tiles from <strong>the United States Geological Survey's The National Map</strong>
+    service (<code>basemap.nationalmap.gov</code>). What it sends is the coordinates of the tiles you
+    asked for and a user-agent string that identifies the app and nothing about you; USGS will see
+    your IP address, as any web server does. The app <strong>only fetches</strong> &mdash; it uploads
+    nothing, and the downloader has no access to your records, your roster or your messages. A short
+    list of map hosts is hard-coded; the app cannot be pointed at an arbitrary server. USGS map data
+    is public domain, and the license and credit line are written into each map file.</p>
+  <p>No map host is contacted while you are on a mission. Maps are downloaded before you go.</p>
+
+  <h2 id="offline">Working offline</h2>
+  <p>These apps are <strong>offline-capable by design, not offline-restricted</strong>. Everything
+    they do works with no cell service, no Wi-Fi and no internet at all, because the radio net is the
+    point. Downloading a map is the one networked feature, and with it off or unreachable every app
+    is fully functional.</p>
+
+  <h2 id="security">Security</h2>
+  <ul>
+    <li><strong>Over the air:</strong> the radio, not the phone, is the encryption endpoint. Traffic
+      on the mesh is encrypted and authenticated by the radio hardware with a network key. PulseLink
+      holds no keys at all. CommandLink and TerraLink can hold keys, under the phone's hardware key
+      store, as described above.</li>
+    <li><strong>On the phone:</strong> app-private storage, under the phone's own encryption. Keys
+      and the admin PIN get the extra hardware-backed layer described above. Use a lock screen
+      &mdash; key material is bound to it.</li>
+    <li><strong>Backups:</strong> all three apps are excluded from Android cloud backup. CommandLink
+      and TerraLink additionally exclude themselves from device-to-device transfer. <em>Being
+      precise, because this policy should not overclaim: PulseLink currently disables cloud backup
+      but does not carry the separate device-transfer exclusion rules that the other two do. We are
+      reviewing that.</em></li>
+    <li><strong>The cable is not encrypted.</strong> The USB link between phone and radio carries
+      plain data. Keep the radio with you. When CommandLink or TerraLink loads a key into a radio that
+      already has an owner, the key crosses the cable wrapped under that radio's owner secret; the
+      first key loaded into a radio with no owner crosses it unwrapped.</li>
+    <li><strong>The radio's debug port is open</strong> on current prototype hardware, so someone
+      with physical possession of a radio and the right tools can read its network key. Treat a lost
+      radio as a lost key: the fleet should be re-keyed. Treat this hardware as unclassified.</li>
+    <li><strong>The app and the radio update differently.</strong> An app installed from Google
+      Play may be updated by Google Play according to your phone's own update settings; the app
+      cannot override them. If you want no automatic app updates on a phone (for example a mission
+      phone), turn off auto-update for it in Google Play. <strong>Radio firmware never updates
+      without your explicit consent:</strong> CommandLink shows you what will happen and how long it
+      will take, and asks you to choose <strong>Update Now</strong> or <strong>Later</strong> —
+      <strong>Later</strong> is the default, and an update can be declined or postponed
+      freely.</li>
+  </ul>
+
+  <h2 id="retention">How long we keep things, and how you delete them</h2>
+  <p>We keep nothing, because we receive nothing. Everything below is on your phone and under your
+    control.</p>
+  <div class="tableWrap">
+    <table>
+      <thead><tr><th>What</th><th>How long</th><th>How to delete it</th></tr></thead>
+      <tbody>
+        <tr><td>PulseLink mission archive</td>
+          <td>Automatically: newest 10 missions, nothing older than 30 days</td>
+          <td><strong>Settings &rarr; Mission Archive</strong> deletes one mission, or <strong>DELETE
+            ALL ARCHIVES</strong></td></tr>
+        <tr><td>CommandLink mission archive</td><td>Same: 10 missions, 30 days</td>
+          <td>The Missions screen deletes one, or <strong>DELETE ALL ARCHIVES</strong></td></tr>
+        <tr><td>Network keys (CommandLink, TerraLink)</td><td>Until you delete them</td>
+          <td><strong>Delete All Keys On This Phone</strong>, which also destroys the hardware key
+            that protected them</td></tr>
+        <tr><td>Admin PIN (CommandLink)</td><td>Until you change it</td>
+          <td>Changed on the PIN screen; removed with the app</td></tr>
+        <tr><td>Mission brief, roster, radio list, settings</td>
+          <td>Until you change them or remove the app</td>
+          <td>Edit or clear the fields; or remove the app</td></tr>
+        <tr><td>Received messages</td><td>Held in memory only, and gone when the app closes</td>
+          <td>Close the app</td></tr>
+        <tr><td>Crash record</td><td>Only the most recent one</td><td>Removed with the app</td></tr>
+        <tr><td>Offline maps</td><td>Until you delete them</td>
+          <td><strong>Settings &rarr; Map Data</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>To delete everything, uninstall the app.</strong> Android removes its private storage
+    with it, which is every record, every setting, every key blob and every map pack that app
+    downloaded. There is nothing left behind on a server, because there is no server.</p>
+  <p>Because there is no account and we hold no copy of your data, a &ldquo;please delete my
+    data&rdquo; request is not something we can act on &mdash; there is nothing on our side to
+    delete. If you would like us to confirm that in writing, email
+    <a href="mailto:support@apddefense.com">support@apddefense.com</a> and we will.</p>
+
+  <h2 id="children">Children</h2>
+  <p>These apps are not directed at children and are not designed or marketed for anyone under 13.
+    They are professional tools for radio operators, team leaders and medics, and they need APD
+    Defense radio hardware to do anything real. We do not knowingly collect information from children
+    &mdash; we do not collect information from anyone. If you believe a child has used one of these
+    apps in a way you are concerned about, email us and we will help you clear the phone.</p>
+
+  <h2 id="changes">Changes to this policy</h2>
+  <p>If we change what an app stores or what can leave your phone, we will update this policy, change
+    the effective date at the top, and keep a short note of what changed. Material changes will be
+    announced in the app's release notes on Google Play and on
+    <a href="https://apddefense.com/">apddefense.com</a>. Because we hold no contact details for you,
+    we cannot email you &mdash; the date at the top of this page is the thing to check.</p>
+
+  <h2 id="contact">Contact</h2>
+  <p><strong>APD Defense, LLC</strong><br>
+    Idaho, United States<br>
+    <a href="mailto:support@apddefense.com">support@apddefense.com</a><br>
+    <a href="https://apddefense.com/">apddefense.com</a></p>
+
+  <hr class="rule">
+  <h3>A note on what this policy is derived from</h3>
+  <p>Every factual claim above was taken from the apps' source code as it stands on the effective
+    date &mdash; the manifests, the storage classes, the dependency lists and the network code
+    &mdash; rather than from intent or from marketing material. If you find a place where the apps
+    behave differently from what this page says, tell us: the code is the thing that is meant to be
+    true, and the page is what we will fix.</p>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="small">PulseLink, CommandLink, TerraLink and the APD Defense radio are in active
+      development; features and specifications may change. They are prototypes, not medical devices,
+      and are not FDA cleared. No endorsement by the U.S. Department of Defense or any government
+      agency is implied. ATAK is a product of the TAK Product Center; its mention does not imply
+      affiliation.</p>
+    <p class="small copy">&copy; 2026 APD Defense, LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
